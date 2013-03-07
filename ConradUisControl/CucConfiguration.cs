@@ -19,5 +19,26 @@ namespace ConradUisControl
         {
             get { return Convert.ToInt32(ConfigurationManager.AppSettings["devicePort"]); }
         }
+
+        public static string Username
+        {
+            get { return ConfigurationManager.AppSettings["username"]; }
+        }
+
+        public static string Password
+        {
+            get { return ConfigurationManager.AppSettings["password"]; }
+        }
+
+        public static string HttpEnableOutletMethodScheme
+        {
+            get { return ConfigurationManager.AppSettings["httpEnableOutletMethodScheme"]; }
+        }
+
+        public static string HttpDisableOutletMethodScheme
+        {
+            get { return ConfigurationManager.AppSettings["httpDisableOutletMethodScheme"]; }
+        }
+
     }
 }

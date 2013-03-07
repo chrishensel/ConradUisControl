@@ -7,6 +7,13 @@ namespace ConradUisControl
 {
     static class DeviceCommunication
     {
+        #region Constants
+
+        private const int ReadWriteTimeout = 10000;
+        private const int RequestTimeout = 5000;
+
+        #endregion
+
         internal static string GetConfiguredDeviceHostUri()
         {
             return string.Format("{0}:{1}", CucConfiguration.DeviceIpAddress, CucConfiguration.DevicePort);
@@ -22,8 +29,8 @@ namespace ConradUisControl
             string uri = string.Format("http://{0}:{1}/{2}", CucConfiguration.DeviceIpAddress, CucConfiguration.DevicePort, relativeUri);
 
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(uri);
-            string username = "admin";
-            string password = "";
+            string username = CucConfiguration.Username;
+            string password = CucConfiguration.Password;
             string encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(username + ":" + password));
             request.Headers.Add("Authorization", "Basic " + encoded);
 
@@ -31,16 +38,19 @@ namespace ConradUisControl
             request.Method = "GET";
             request.IfModifiedSince = new DateTime(0L);
 
-            using (WebResponse response = request.GetResponse())
+            request.ReadWriteTimeout = ReadWriteTimeout;
+            request.Timeout = RequestTimeout;
+
+            try
             {
-                try
+                using (WebResponse response = request.GetResponse())
                 {
                     return XDocument.Load(response.GetResponseStream());
                 }
-                catch (Exception)
-                {
-
-                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(Properties.Resources.MakeRequestError, uri, ex.Message);
             }
 
             return null;

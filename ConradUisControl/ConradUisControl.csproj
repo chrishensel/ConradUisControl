@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CucConfiguration.cs" />
+    <Compile Include="CucServer.cs" />
     <Compile Include="DeviceCommunication.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

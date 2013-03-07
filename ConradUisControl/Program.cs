@@ -9,18 +9,50 @@ namespace ConradUisControl
         {
             PrintHelp();
 
-            while (true)
+            using (CucServer server = new CucServer())
             {
-                ConsoleKeyInfo key = Console.ReadKey(true);
-                if (key.Key == ConsoleKey.Escape)
+                server.CommandReceived += _server_CommandReceived;
+                server.Start();
+
+                while (true)
                 {
-                    break;
+                    ConsoleKeyInfo key = Console.ReadKey(true);
+                    if (key.Key == ConsoleKey.Escape)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        HandleKey(key.Key);
+                    }
+                    Thread.Sleep(1);
                 }
-                else
+            }
+        }
+
+        private static void _server_CommandReceived(object sender, CucServer.CommandEventArgs e)
+        {
+            try
+            {
+                switch (e.Command)
                 {
-                    HandleKey(key.Key);
+                    case "enable":
+                    case "disable":
+                        {
+                            int outletIndex = Convert.ToInt32(e.Parameters[0]);
+                            bool enabled = (e.Command == "enable");
+
+                            SetOutletStatus(outletIndex, enabled);
+                        }
+                        break;
+                    default:
+                        Console.WriteLine("Command not recognized: {0}; {1}", e.Command, string.Join(",", e.Parameters));
+                        break;
                 }
-                Thread.Sleep(1);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(Properties.Resources.ReceivedCommandProcessingError, e.Command, ex.Message);
             }
         }
 
