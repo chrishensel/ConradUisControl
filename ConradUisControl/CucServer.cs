@@ -134,6 +134,11 @@ namespace ConradUisControl
                     {
                         if (success)
                         {
+                            if (parameters == null)
+                            {
+                                parameters = new string[0];
+                            }
+
                             CommandEventArgs args = new CommandEventArgs();
                             args.Command = command;
                             args.Parameters = parameters;
