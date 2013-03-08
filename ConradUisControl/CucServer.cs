@@ -12,6 +12,13 @@ namespace ConradUisControl
     /// </summary>
     class CucServer : IDisposable
     {
+        #region Constants
+
+        private const string ResponseSuccess = "200 OK";
+        private const string ResponseError = "400 Bad Request";
+
+        #endregion
+
         #region Events
 
         /// <summary>
@@ -120,37 +127,57 @@ namespace ConradUisControl
 
                     string command = null;
                     string[] parameters = null;
-                    string returnCode = "200";
-                    bool success = false;
+                    string response = ResponseSuccess;
+                    CommandType commandType = CommandType.Invalid;
 
                     try
                     {
-                        success = TryParseRequestUri(getRequestUri, out command, out parameters);
+                        bool success = TryParseRequestUri(getRequestUri, out command, out parameters);
+                        if (success)
+                        {
+                            // Handle special commands right here
+                            switch (command)
+                            {
+                                case "":
+                                    // Provide index page
+                                    commandType = CommandType.Internal;
+                                    response = Properties.Resources.IndexPage;
+                                    break;
+                                default:
+                                    commandType = CommandType.Other;
+                                    break;
+                            }
+                        }
                     }
                     catch (Exception)
                     {
                     }
                     finally
                     {
-                        if (success)
+                        switch (commandType)
                         {
-                            if (parameters == null)
-                            {
-                                parameters = new string[0];
-                            }
+                            case CommandType.Other:
+                                {
+                                    if (parameters == null)
+                                    {
+                                        parameters = new string[0];
+                                    }
 
-                            CommandEventArgs args = new CommandEventArgs();
-                            args.Command = command;
-                            args.Parameters = parameters;
+                                    CommandEventArgs args = new CommandEventArgs();
+                                    args.Command = command;
+                                    args.Parameters = parameters;
 
-                            OnCommandReceived(args);
+                                    OnCommandReceived(args);
+                                } break;
+
+                            case CommandType.Invalid:
+                                response = ResponseError;
+                                break;
+
+                            default: break;
                         }
-                        else
-                        {
-                            returnCode = "404";
-                        }
 
-                        SendResponse(tcpClient, returnCode);
+                        SendResponse(tcpClient, response);
 
                         tcpClient.Close();
                     }
@@ -187,6 +214,13 @@ namespace ConradUisControl
         #endregion
 
         #region Nested types
+
+        private enum CommandType
+        {
+            Invalid = 0,
+            Internal,
+            Other,
+        }
 
         /// <summary>
         /// Provides event args for the case that the user has invoked via HTTP.

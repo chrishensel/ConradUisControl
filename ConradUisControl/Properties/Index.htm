@@ -1,0 +1,81 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+    <head>
+        <title>Conrad's UIS Control Index Page</title>
+    </head>
+    <body>
+        <h1>
+            Welcome to the CUC frontend
+        </h1>
+        <p>
+            You'll find information on the usage of the CUC here.
+        </p>
+        <h2>
+            Configuration
+        </h2>
+        <p>
+            Find the <i>ConradUisControl.exe.config</i> file in your <i>bin</i>-directory. Open it with any text editor.
+            You then see the contents in an XML-file, where the <i>&lt;appSettings&gt;</i>-section represents the configuration.<br />
+            
+            Descriptions:
+            <ul>
+                <li><b>listenPort</b>: the port on the local machine where the webserver shall wait for GET requests</li>
+                <li><b>deviceIp</b>: the IP of the device within your network</li>
+                <li><b>devicePort</b>: the port of the device</li>
+                <li><b>username</b>: used for authentication on the device</li>
+                <li><b>password</b>: used for authentication on the device</li>
+                <li><b>outletCount</b>: how many outlets the device features (starting at 1)</li>
+            </ul>
+        </p>
+        <h2>
+            API
+        </h2>
+        <p>
+            The CUC web server allows access to some methods, which can be used to set the outlet status.
+        </p>
+        <table border="1">
+            <tr>
+                <td>
+                    <b>Name</b>
+                </td>
+                <td>
+                    <b>Type</b>
+                </td>
+                <td>
+                    <b>Parameters</b>
+                </td>
+                <td>
+                    <b>Example</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    enable
+                </td>
+                <td>
+                    GET/POST
+                </td>
+                <td>
+                    <i>outlet index</i>
+                </td>
+                <td>
+                    <a href="/enable?1">/enable?1</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    disable
+                </td>
+                <td>
+                    GET/POST
+                </td>
+                <td>
+                    <i>outlet index</i>
+                </td>
+                <td>
+                    <a href="/disable?1">/disable?1</a>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>
