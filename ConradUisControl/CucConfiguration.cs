@@ -40,5 +40,10 @@ namespace ConradUisControl
             get { return ConfigurationManager.AppSettings["httpDisableOutletMethodScheme"]; }
         }
 
+        public static int OutletCount
+        {
+            get { return Convert.ToInt32(ConfigurationManager.AppSettings["outletCount"]); }
+        }
+
     }
 }

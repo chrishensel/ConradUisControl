@@ -40,6 +40,12 @@ namespace ConradUisControl
                     case "disable":
                         {
                             int outletIndex = Convert.ToInt32(e.Parameters[0]);
+                            if (!DeviceCommunication.IsOutletIndexAvailable(outletIndex))
+                            {
+                                Console.WriteLine(Properties.Resources.OutletIndexNotValid, outletIndex);
+                                return;
+                            }
+
                             bool enabled = (e.Command == "enable");
 
                             SetOutletStatus(outletIndex, enabled);

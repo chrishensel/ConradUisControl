@@ -84,17 +84,10 @@ namespace ConradUisControl
 
         internal static bool SetOutletStatus(int outletIndex, bool enabled)
         {
-            // Usage:
-            //    outlet_uis(index, 2)
-            //
-            // function outlet_uis(olid, on_off)
-            // {
-            // var dttoday = new Date();
-            // var answer = confirm("Sind Sie sicher??");
-            // if(answer) {
-            // var execute_uri = 'control.cgi?outlet='+ olid + '&command=' + on_off + "&time=" + dttoday.getTime();
-            // document.getElementById('execute_cgi').src = execute_uri;
-            // }
+            if (!IsOutletIndexAvailable(outletIndex))
+            {
+                return false;
+            }
 
             string enable = enabled ? "1" : "0";
 
@@ -115,6 +108,11 @@ namespace ConradUisControl
             DateTime st = new DateTime(1970, 1, 1);
             TimeSpan t = (DateTime.Now.ToUniversalTime() - st);
             return (long)t.TotalMilliseconds;
+        }
+
+        internal static bool IsOutletIndexAvailable(int outletIndex)
+        {
+            return outletIndex >= 0 && outletIndex <= CucConfiguration.OutletCount;
         }
     }
 }
