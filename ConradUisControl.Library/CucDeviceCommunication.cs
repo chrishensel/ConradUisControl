@@ -39,7 +39,7 @@ namespace ConradUisControl.Library
 
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(uri);
             string username = CucGlobal.Configuration.Username;
-            string password = CucGlobal.Configuration.Password;
+            string password = CucGlobal.Configuration.Password ?? "";
             string encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(username + ":" + password));
             request.Headers.Add("Authorization", "Basic " + encoded);
 

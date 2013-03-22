@@ -154,6 +154,10 @@ namespace ConradUisControl.Library
                                     commandType = CommandType.Internal;
                                     response = Properties.Resources.IndexPage;
                                     break;
+                                case "favicon.ico":
+                                    commandType = CommandType.Internal;
+                                    response = string.Empty;
+                                    break;
                                 default:
                                     commandType = CommandType.Other;
                                     break;
@@ -237,7 +241,10 @@ namespace ConradUisControl.Library
 
         #region IDisposable Members
 
-        void IDisposable.Dispose()
+        /// <summary>
+        /// Stops the listener-thread and releases all resources.
+        /// </summary>
+        public void Dispose()
         {
             _listener.Stop();
 

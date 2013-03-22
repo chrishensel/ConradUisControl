@@ -32,5 +32,22 @@ namespace ConradUisControl.Library
 
         #endregion
 
+        #region Methods
+
+        /// <summary>
+        /// Returns a string containing the name of the command and its parameters.
+        /// </summary>
+        /// <returns>Format: [COMMAND];[PARAMETERS,]</returns>
+        public override string ToString()
+        {
+            string parameters = "";
+            if (Parameters != null && Parameters.Length > 0)
+            {
+                parameters = string.Format("; {0}", string.Join(",", Parameters));
+            }
+            return string.Format("{0}{1}", Command, parameters);
+        }
+
+        #endregion
     }
 }
