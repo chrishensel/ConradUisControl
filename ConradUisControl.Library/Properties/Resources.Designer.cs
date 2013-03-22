@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ConradUisControl.Properties {
+namespace ConradUisControl.Library.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace ConradUisControl.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ConradUisControl.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ConradUisControl.Library.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,58 +61,45 @@ namespace ConradUisControl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Key   | Function:
-        ///------+--------------------------
-        ///C     | Clear screen
-        ///H     | Display this text
-        ///Num0  | Read outlet status
-        ///ESC   | Quit
-        ///------+--------------------------
-        ///Num1  | Set outlet #1 to ENABLED
-        ///Num2  | Set outlet #1 to DISABLED
-        ///------+--------------------------
-        ///Num4  | Set outlet #2 to ENABLED
-        ///Num5  | Set outlet #2 to DISABLED.
+        ///   Looks up a localized string similar to &lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0 Transitional//EN&quot;&gt;
+        ///&lt;html&gt;
+        ///    &lt;head&gt;
+        ///        &lt;title&gt;Conrad&apos;s UIS Control Index Page&lt;/title&gt;
+        ///    &lt;/head&gt;
+        ///    &lt;body&gt;
+        ///        &lt;h1&gt;
+        ///            Welcome to the CUC frontend
+        ///        &lt;/h1&gt;
+        ///        &lt;p&gt;
+        ///            You&apos;ll find information on the usage of the CUC here.
+        ///        &lt;/p&gt;
+        ///        &lt;h2&gt;
+        ///            Configuration
+        ///        &lt;/h2&gt;
+        ///        &lt;p&gt;
+        ///            Find the &lt;i&gt;ConradUisControl.exe.config&lt;/i&gt; file in your &lt;i&gt;bin&lt;/i&gt;-directory. Open it with any text e [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string HelpText {
+        internal static string IndexPage {
             get {
-                return ResourceManager.GetString("HelpText", resourceCulture);
+                return ResourceManager.GetString("IndexPage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The outlet with index &apos;{0}&apos; is not valid for this device!.
+        ///   Looks up a localized string similar to Could not get the response from URI &apos;{0}&apos;.The error message was: {1}.
         /// </summary>
-        internal static string OutletIndexNotValid {
+        internal static string MakeRequestError {
             get {
-                return ResourceManager.GetString("OutletIndexNotValid", resourceCulture);
+                return ResourceManager.GetString("MakeRequestError", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occurred while processing command &apos;{0}&apos;. It may be in a wrong format or is unkown. The error message was: {1}.
+        ///   Looks up a localized string similar to The server is already running!.
         /// </summary>
-        internal static string ReceivedCommandProcessingError {
+        internal static string ServerAlreadyRunning {
             get {
-                return ResourceManager.GetString("ReceivedCommandProcessingError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Disabled.
-        /// </summary>
-        internal static string UISOutletStatusDisabled {
-            get {
-                return ResourceManager.GetString("UISOutletStatusDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enabled.
-        /// </summary>
-        internal static string UISOutletStatusEnabled {
-            get {
-                return ResourceManager.GetString("UISOutletStatusEnabled", resourceCulture);
+                return ResourceManager.GetString("ServerAlreadyRunning", resourceCulture);
             }
         }
     }

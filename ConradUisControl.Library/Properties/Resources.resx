@@ -118,19 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="HelpText" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>HelpText.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="IndexPage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>index.htm;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="OutletIndexNotValid" xml:space="preserve">
-    <value>The outlet with index '{0}' is not valid for this device!</value>
+  <data name="MakeRequestError" xml:space="preserve">
+    <value>Could not get the response from URI '{0}'.The error message was: {1}</value>
   </data>
-  <data name="ReceivedCommandProcessingError" xml:space="preserve">
-    <value>An error occurred while processing command '{0}'. It may be in a wrong format or is unkown. The error message was: {1}</value>
-  </data>
-  <data name="UISOutletStatusDisabled" xml:space="preserve">
-    <value>Disabled</value>
-  </data>
-  <data name="UISOutletStatusEnabled" xml:space="preserve">
-    <value>Enabled</value>
+  <data name="ServerAlreadyRunning" xml:space="preserve">
+    <value>The server is already running!</value>
   </data>
 </root>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using ConradUisControl.Library;
 
 namespace ConradUisControl
 {
@@ -7,6 +8,8 @@ namespace ConradUisControl
     {
         static void Main(string[] args)
         {
+            CucGlobal.Configuration = new CucConfiguration();
+
             PrintHelp();
 
             using (CucServer server = new CucServer())
@@ -30,7 +33,7 @@ namespace ConradUisControl
             }
         }
 
-        private static void _server_CommandReceived(object sender, CucServer.CommandEventArgs e)
+        private static void _server_CommandReceived(object sender, CommandEventArgs e)
         {
             try
             {
@@ -40,7 +43,7 @@ namespace ConradUisControl
                     case "disable":
                         {
                             int outletIndex = Convert.ToInt32(e.Parameters[0]);
-                            if (!DeviceCommunication.IsOutletIndexAvailable(outletIndex))
+                            if (!CucDeviceCommunication.IsOutletIndexAvailable(outletIndex))
                             {
                                 Console.WriteLine(Properties.Resources.OutletIndexNotValid, outletIndex);
                                 return;
@@ -101,7 +104,7 @@ namespace ConradUisControl
 
         private static void PrintHelp()
         {
-            Console.WriteLine("Configured device URI: {0}", DeviceCommunication.GetConfiguredDeviceHostUri());
+            Console.WriteLine("Configured device URI: {0}", CucDeviceCommunication.GetConfiguredDeviceHostUri());
             Console.WriteLine("");
             Console.WriteLine(Properties.Resources.HelpText);
             Console.WriteLine("");
@@ -113,7 +116,7 @@ namespace ConradUisControl
             Console.WriteLine("Reading outlet status...");
             Console.WriteLine("");
 
-            bool[] status = DeviceCommunication.GetOutletStatus();
+            bool[] status = CucDeviceCommunication.GetOutletStatus();
             if (status == null)
             {
                 Console.WriteLine("Could not retrieve outlet status! Please try again in a few seconds!");
@@ -131,7 +134,7 @@ namespace ConradUisControl
             Console.WriteLine("Setting outlet {0} to {1}...", outletIndex, enabled);
             Console.WriteLine("");
 
-            DeviceCommunication.SetOutletStatus(outletIndex, enabled);
+            CucDeviceCommunication.SetOutletStatus(outletIndex, enabled);
 
             Console.WriteLine("Done.");
             Console.WriteLine("");

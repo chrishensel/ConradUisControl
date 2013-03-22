@@ -3,9 +3,12 @@ using System.Net;
 using System.Text;
 using System.Xml.Linq;
 
-namespace ConradUisControl
+namespace ConradUisControl.Library
 {
-    static class DeviceCommunication
+    /// <summary>
+    /// Provides static methods to talk to the device.
+    /// </summary>
+    public static class CucDeviceCommunication
     {
         #region Constants
 
@@ -14,9 +17,15 @@ namespace ConradUisControl
 
         #endregion
 
-        internal static string GetConfiguredDeviceHostUri()
+        #region Methods
+
+        /// <summary>
+        /// Returns the URI of the configured device host. This is the device to talk to.
+        /// </summary>
+        /// <returns></returns>
+        public static string GetConfiguredDeviceHostUri()
         {
-            return string.Format("{0}:{1}", CucConfiguration.DeviceIpAddress, CucConfiguration.DevicePort);
+            return string.Format("{0}:{1}", CucGlobal.Configuration.DeviceIpAddress, CucGlobal.Configuration.DevicePort);
         }
 
         /// <summary>
@@ -24,13 +33,13 @@ namespace ConradUisControl
         /// </summary>
         /// <param name="relativeUri">The URI. Must be relative to 'http://IP/". </param>
         /// <returns>The XML response from the device. Weird: Sometimes the response cannot be fetched (an exception occurs)!</returns>
-        internal static XDocument MakeRequest(string relativeUri)
+        public static XDocument MakeRequest(string relativeUri)
         {
-            string uri = string.Format("http://{0}:{1}/{2}", CucConfiguration.DeviceIpAddress, CucConfiguration.DevicePort, relativeUri);
+            string uri = string.Format("http://{0}:{1}/{2}", CucGlobal.Configuration.DeviceIpAddress, CucGlobal.Configuration.DevicePort, relativeUri);
 
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(uri);
-            string username = CucConfiguration.Username;
-            string password = CucConfiguration.Password;
+            string username = CucGlobal.Configuration.Username;
+            string password = CucGlobal.Configuration.Password;
             string encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(username + ":" + password));
             request.Headers.Add("Authorization", "Basic " + encoded);
 
@@ -60,7 +69,7 @@ namespace ConradUisControl
         /// Returns the outlet status.
         /// </summary>
         /// <returns>The outlet status, represented by booleans. -or- null, if status could not be retrieved.</returns>
-        internal static bool[] GetOutletStatus()
+        public static bool[] GetOutletStatus()
         {
             XDocument response = MakeRequest("outlet_status.xml");
             if (response == null)
@@ -82,7 +91,13 @@ namespace ConradUisControl
             return status;
         }
 
-        internal static bool SetOutletStatus(int outletIndex, bool enabled)
+        /// <summary>
+        /// Sets the status of a given outlet to the desired value.
+        /// </summary>
+        /// <param name="outletIndex"></param>
+        /// <param name="enabled"></param>
+        /// <returns></returns>
+        public static bool SetOutletStatus(int outletIndex, bool enabled)
         {
             if (!IsOutletIndexAvailable(outletIndex))
             {
@@ -110,9 +125,17 @@ namespace ConradUisControl
             return (long)t.TotalMilliseconds;
         }
 
-        internal static bool IsOutletIndexAvailable(int outletIndex)
+        /// <summary>
+        /// Returns whether or not the given outlet index is valid (based on the configuration).
+        /// </summary>
+        /// <param name="outletIndex"></param>
+        /// <returns></returns>
+        public static bool IsOutletIndexAvailable(int outletIndex)
         {
-            return outletIndex >= 0 && outletIndex <= CucConfiguration.OutletCount;
+            return outletIndex >= 0 && outletIndex <= CucGlobal.Configuration.OutletCount;
         }
+
+        #endregion
+
     }
 }

@@ -5,12 +5,12 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 
-namespace ConradUisControl
+namespace ConradUisControl.Library
 {
     /// <summary>
     /// Represents a server, which listens on the localhost (configurable port) and interprets GET requests as commandos.
     /// </summary>
-    class CucServer : IDisposable
+    public sealed class CucServer : IDisposable
     {
         #region Constants
 
@@ -46,9 +46,12 @@ namespace ConradUisControl
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a default instance of <see cref="CucServer"/>.
+        /// </summary>
         public CucServer()
         {
-            _listener = new TcpListener(IPAddress.Any, CucConfiguration.ListenPort);
+            _listener = new TcpListener(IPAddress.Any, CucGlobal.Configuration.ListenPort);
             _thread = new Thread(StartThread);
         }
 
@@ -56,8 +59,16 @@ namespace ConradUisControl
 
         #region Methods
 
+        /// <summary>
+        /// Starts the server.
+        /// </summary>
+        /// <exception cref="System.InvalidOperationException">The server is already started.</exception>
         public void Start()
         {
+            if (_thread.ThreadState == ThreadState.Running)
+            {
+                throw new InvalidOperationException(Properties.Resources.ServerAlreadyRunning);
+            }
             _thread.Start();
         }
 
@@ -220,26 +231,6 @@ namespace ConradUisControl
             Invalid = 0,
             Internal,
             Other,
-        }
-
-        /// <summary>
-        /// Provides event args for the case that the user has invoked via HTTP.
-        /// </summary>
-        public class CommandEventArgs : EventArgs
-        {
-            /// <summary>
-            /// Gets/sets the command text. Example: http://localhost/[COMMAND]/.
-            /// </summary>
-            public string Command { get; set; }
-            /// <summary>
-            /// Gets/sets the command text. Example: http://localhost/[COMMAND]?[PARAMETER1]&[PARAMETER2].
-            /// </summary>
-            public string[] Parameters { get; set; }
-
-            public CommandEventArgs()
-            {
-                Parameters = new string[0];
-            }
         }
 
         #endregion
