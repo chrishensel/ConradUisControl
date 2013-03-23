@@ -61,6 +61,24 @@ namespace ConradUisControl.Library.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred while processing a request! The error message was: {0}.
+        /// </summary>
+        internal static string ErrorWhileProcessingRequest {
+            get {
+                return ResourceManager.GetString("ErrorWhileProcessingRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The read-request timed out! The error message was: {0}.
+        /// </summary>
+        internal static string ErrorWhileProcessingRequestTimeout {
+            get {
+                return ResourceManager.GetString("ErrorWhileProcessingRequestTimeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0 Transitional//EN&quot;&gt;
         ///&lt;html&gt;
         ///    &lt;head&gt;

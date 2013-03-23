@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ErrorWhileProcessingRequest" xml:space="preserve">
+    <value>An error occurred while processing a request! The error message was: {0}</value>
+  </data>
+  <data name="ErrorWhileProcessingRequestTimeout" xml:space="preserve">
+    <value>The read-request timed out! The error message was: {0}</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="IndexPage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>index.htm;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>

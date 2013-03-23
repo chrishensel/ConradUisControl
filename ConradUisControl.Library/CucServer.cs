@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
@@ -16,6 +17,7 @@ namespace ConradUisControl.Library
 
         private const string ResponseSuccess = "200 OK";
         private const string ResponseError = "400 Bad Request";
+        private const int ReadTimeout = 10000;
 
         #endregion
 
@@ -65,7 +67,7 @@ namespace ConradUisControl.Library
         /// <exception cref="System.InvalidOperationException">The server is already started.</exception>
         public void Start()
         {
-            if (_thread.ThreadState == ThreadState.Running)
+            if (_thread.ThreadState == System.Threading.ThreadState.Running)
             {
                 throw new InvalidOperationException(Properties.Resources.ServerAlreadyRunning);
             }
@@ -89,6 +91,14 @@ namespace ConradUisControl.Library
                 {
                     // Ignored because it also happens when the server is closed.
                 }
+                catch (IOException ex)
+                {
+                    Trace.WriteLine(Properties.Resources.ErrorWhileProcessingRequestTimeout, ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    Trace.WriteLine(Properties.Resources.ErrorWhileProcessingRequest, ex.Message);
+                }
             }
         }
 
@@ -96,8 +106,8 @@ namespace ConradUisControl.Library
         {
             using (TcpClient tcpClient = (TcpClient)client)
             {
-
                 NetworkStream clientStream = tcpClient.GetStream();
+                clientStream.ReadTimeout = ReadTimeout;
 
                 byte[] message = new byte[4096];
                 int bytesRead;
@@ -166,6 +176,7 @@ namespace ConradUisControl.Library
                     }
                     catch (Exception)
                     {
+                        response = ResponseError;
                     }
                     finally
                     {
